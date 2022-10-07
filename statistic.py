@@ -68,7 +68,10 @@ class MainWin(QWidget):
         for n in named:
             namedict[n] = 0
         for n in self.namelist:
-            namedict[n] += 1
+            try:
+                namedict[n] += 1
+            except:
+                namedict[n] = 0
         self.te.setText(self.namedict2text(namedict))
 
     def namedict2text(self,namedict:dict)->str:

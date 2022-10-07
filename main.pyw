@@ -5,8 +5,6 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication,QWidget,QLabel,QPushButton
 import sys
 import os
-from win32 import win32gui
-
 
 class MainWindow(QWidget):
     """ 
@@ -169,10 +167,6 @@ class MainWindow(QWidget):
         
         
 if __name__ == "__main__":
-    try:
-        h = win32gui.FindWindow(None,"Victim-Generator")
-        win32gui.SetForegroundWindow(h)
-    except:
-        app = QApplication(sys.argv)
-        box = MainWindow()
-        app.exit(app.exec_())
+    app = QApplication(sys.argv)
+    box = MainWindow()
+    app.exit(app.exec_())
