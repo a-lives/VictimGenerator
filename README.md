@@ -1,3 +1,3 @@
 # VictimGenerator
 
-功能显而易见
+抽签工具
