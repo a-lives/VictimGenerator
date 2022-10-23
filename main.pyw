@@ -2,7 +2,7 @@ import json
 import random
 from PyQt5 import QtCore
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication,QWidget,QLabel,QPushButton
+from PyQt5.QtWidgets import QApplication,QWidget,QLabel,QPushButton,QMessageBox
 import sys
 import os
 
@@ -162,6 +162,7 @@ class MainWindow(QWidget):
             else :
                 name = "(°Д °)"
             if self.counter == 13:
+                QMessageBox.information(self,"Congratulations!","You found a great little game")
                 os.popen("python EE.py")
         self.lab.setText(name)
         

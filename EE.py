@@ -4,7 +4,7 @@
 """
 
 from PyQt5 import QtCore,QtGui
-from PyQt5.QtWidgets import QFrame, QWidget,QApplication,QLabel,QMessageBox
+from PyQt5.QtWidgets import QFrame, QWidget,QApplication,QLabel
 import numpy as np
 import time
 import sys
@@ -38,6 +38,7 @@ SIDE_W = int((SPACE_W-SNAKE_WIDTH)/2)
 START_POSITIONS = [ [8,3+i] for i in range(SNAKE_START_LONG)]
 START_DRECTIONS = [(L,R)]*SNAKE_START_LONG
 
+FIRSTGAME = True
 GAME_CONTNIUE = True
 TURN_LOCK = True                                                  #转向锁，防止出现奇奇怪怪的BUG
 
@@ -370,7 +371,6 @@ class MainWindow(QWidget):
         self.initUI()
         
     def initUI(self):
-        QMessageBox.information(self,"Congratulations!","You found a great little game")
         self.setGeometry(50,50,BOARD_SIZE[1]+100,BOARD_SIZE[0])
         self.setStyleSheet(""" 
                            background: #7f8c8d;
@@ -443,7 +443,7 @@ class MainWindow(QWidget):
 
     
     def keyPressEvent(self, a0: QtGui.QKeyEvent) -> None:
-        global GAME_CONTNIUE
+        global GAME_CONTNIUE,FIRSTGAME
         """ 
         ↑   :   16777235
         ↓   :   16777237
@@ -459,10 +459,15 @@ class MainWindow(QWidget):
                 if b.head == True:
                     b.nd = turn_left(b.nd)
         elif str(a0.key()) == "32":
-            if GAME_CONTNIUE:
+            if FIRSTGAME:
                 print("GAME START")
                 self.lab2SetText("GAME START")
+                FIRSTGAME = False
+                GAME_CONTNIUE = True
                 self.refresh()
+            elif GAME_CONTNIUE:
+                print("Is in the game")
+                self.lab2SetText("Is in the game")
             else:
                 print("RESTART")
                 self.lab2SetText("RESTART")

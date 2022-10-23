@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QApplication,QWidget,QTextEdit,QPushButton
+from PyQt5.QtWidgets import QApplication,QWidget,QTextEdit,QPushButton,QMessageBox
+from PyQt5.QtGui import QIcon
 import sys
 import re
 
@@ -16,6 +17,9 @@ class MainWin(QWidget):
                            """)
         self.setWindowTitle("history")
         self.setFixedSize(self.width(), self.height())
+        icon = QIcon()
+        icon.addFile("icon.svg")
+        self.setWindowIcon(icon)
         
         #文本框
         self.te = QTextEdit(self)
@@ -50,9 +54,13 @@ class MainWin(QWidget):
         self.show()   
         
     def clean(self):
-        with open("./history.csv","w") as f:
-            f.write("")
-        self.refresh_history()
+        a = QMessageBox.question(self,"QAQ","确定要清空历史记录吗?",QMessageBox.Yes|QMessageBox.No,QMessageBox.No)
+        if a == QMessageBox.Yes:    
+            with open("./history.csv","w") as f:
+                f.write("")
+            self.refresh_history()
+        else:
+            pass
 
     def namelist2text(self)->str:
         text = ""

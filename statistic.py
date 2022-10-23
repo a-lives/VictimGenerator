@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QApplication,QWidget,QTextEdit,QLabel
+from PyQt5.QtGui import QIcon
 import sys
 import re
 import json
@@ -17,6 +18,9 @@ class MainWin(QWidget):
                            """)
         self.setWindowTitle("Bless YOU!")
         self.setFixedSize(self.width(), self.height())
+        icon = QIcon()
+        icon.addFile("icon.svg")
+        self.setWindowIcon(icon)
         
         #文本框
         self.te = QTextEdit(self)

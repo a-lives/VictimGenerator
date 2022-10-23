@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QApplication,QWidget,QTextEdit,QPushButton,QLabel,QMessageBox
+from PyQt5.QtGui import QIcon
 import sys
 import json
 import re
@@ -25,6 +26,9 @@ class MainWin(QWidget):
                            """)
         self.setWindowTitle("NameListEditor")
         self.setFixedSize(self.width(), self.height())
+        icon = QIcon()
+        icon.addFile("icon.svg")
+        self.setWindowIcon(icon)
         
         #文本框
         self.te = QTextEdit(self)
@@ -84,9 +88,11 @@ class MainWin(QWidget):
         self.show()
     
     def changenamelist(self):
-        text = self.te.toPlainText()
-        text2json(text) 
-        QMessageBox.information(self,"QAQ","或许你做出了重大改变")
+        a = QMessageBox.question(self,"QAQ","确定要进行更改吗?",QMessageBox.Yes|QMessageBox.No,QMessageBox.No)
+        if a == QMessageBox.Yes:
+            text = self.te.toPlainText()
+            text2json(text) 
+            QMessageBox.information(self,"QAQ","或许你做出了重大改变")
     
 
     def namelist2text(self)->str:
